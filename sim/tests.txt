@@ -1,0 +1,11 @@
+0 warmup 0 45 NONE 2
+1 circle 0 45 CIRCLE 3
+2 square 0 50 SQUARE 3
+3 rect 0 60 RECTANGLE 3
+4 triangle 0 40 TRIANGLE 3
+5 pentagon 0 70 PENTAGON 3
+6 hexagon 0 30 HEXAGON 3
+7 far 0 120 NONE 4
+8 edge76 0 76 NONE 4
+9 edge75 0 75 SQUARE 4
+10 chroma 2 55 TRIANGLE 4

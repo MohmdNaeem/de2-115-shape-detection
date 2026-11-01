@@ -1,0 +1,90 @@
+=== DE2-115 shape detection testbench ===
+[45330000] I2C  dev=ba reg=0d data=0001
+[81810000] I2C  dev=ba reg=0d data=0000
+[118290000] I2C  dev=ba reg=01 data=0220
+[154770000] I2C  dev=ba reg=02 data=02a0
+[191250000] I2C  dev=ba reg=03 data=03bf
+[227730000] I2C  dev=ba reg=04 data=04ff
+[264210000] I2C  dev=ba reg=22 data=0011
+[300690000] I2C  dev=ba reg=23 data=0011
+[337170000] I2C  dev=ba reg=05 data=0000
+[373650000] I2C  dev=ba reg=06 data=0019
+[410130000] I2C  dev=ba reg=09 data=0100
+[446610000] I2C  dev=ba reg=0a data=8000
+[483090000] I2C  dev=ba reg=20 data=0000
+[519570000] I2C  dev=ba reg=2b data=0010
+[556050000] I2C  dev=ba reg=2c data=0012
+[592530000] I2C  dev=ba reg=2d data=0012
+[629010000] I2C  dev=ba reg=2e data=0010
+[629270000] camera configured, 17 register writes, ack_error=0
+[629270000] ---- test 0: warmup  mode=0  distance=45 cm  expect NONE
+RES test=0 frame=0 gate=0 T=128 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=0
+RES test=0 frame=1 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=0
+LCD  |SHAPE: SEARCHING|  |DIST: 045cm NEAR|
+FINAL test=0 expect=NONE class=0 lcd_class_leds=000000001 dist=45 near=1
+[49282130000] ---- test 1: circle  mode=0  distance=45 cm  expect CIRCLE
+RES test=1 frame=2 gate=1 T=140 raw=1 class=0 obj=1 box=108,63,231,186 area=12096 I1=27196225
+RES test=1 frame=3 gate=1 T=140 raw=1 class=1 obj=1 box=108,63,231,186 area=12096 I1=27196225
+RES test=1 frame=4 gate=1 T=140 raw=1 class=1 obj=1 box=108,63,231,186 area=12096 I1=27196225
+LCD  |SHAPE: CIRCLE   |  |DIST: 045cm NEAR|
+FINAL test=1 expect=CIRCLE class=1 lcd_class_leds=000000010 dist=45 near=1
+[116482130000] ---- test 2: square  mode=0  distance=50 cm  expect SQUARE
+RES test=2 frame=5 gate=1 T=140 raw=2 class=1 obj=1 box=86,56,213,183 area=9204 I1=29746116
+RES test=2 frame=6 gate=1 T=139 raw=2 class=2 obj=1 box=86,56,213,183 area=9205 I1=29740662
+RES test=2 frame=7 gate=1 T=139 raw=2 class=2 obj=1 box=86,56,213,183 area=9205 I1=29740662
+LCD  |SHAPE: SQUARE   |  |DIST: 050cm NEAR|
+FINAL test=2 expect=SQUARE class=2 lcd_class_leds=000000100 dist=50 near=1
+[183682130000] ---- test 3: rect  mode=0  distance=60 cm  expect RECTANGLE
+RES test=3 frame=8 gate=1 T=139 raw=3 class=2 obj=1 box=88,60,241,175 area=10404 I1=29803907
+RES test=3 frame=9 gate=1 T=139 raw=3 class=3 obj=1 box=88,60,241,175 area=10404 I1=29803907
+RES test=3 frame=10 gate=1 T=139 raw=3 class=3 obj=1 box=88,60,241,175 area=10404 I1=29803907
+LCD  |SHAPE: RECTANGLE|  |DIST: 060cm NEAR|
+FINAL test=3 expect=RECTANGLE class=3 lcd_class_leds=000001000 dist=60 near=1
+[250882130000] ---- test 4: triangle  mode=0  distance=40 cm  expect TRIANGLE
+RES test=4 frame=11 gate=1 T=139 raw=4 class=3 obj=1 box=89,69,206,186 area=6735 I1=39633305
+RES test=4 frame=12 gate=1 T=139 raw=4 class=4 obj=1 box=89,69,206,186 area=6735 I1=39633305
+RES test=4 frame=13 gate=1 T=139 raw=4 class=4 obj=1 box=89,69,206,186 area=6735 I1=39633305
+LCD  |SHAPE: TRIANGLE |  |DIST: 040cm NEAR|
+FINAL test=4 expect=TRIANGLE class=4 lcd_class_leds=000010000 dist=40 near=1
+[318082130000] ---- test 5: pentagon  mode=0  distance=70 cm  expect PENTAGON
+RES test=5 frame=14 gate=1 T=139 raw=5 class=4 obj=1 box=99,58,216,176 area=9676 I1=28116505
+RES test=5 frame=15 gate=1 T=139 raw=5 class=5 obj=1 box=99,58,216,176 area=9676 I1=28116505
+RES test=5 frame=16 gate=1 T=139 raw=5 class=5 obj=1 box=99,58,216,176 area=9676 I1=28116505
+LCD  |SHAPE: PENTAGON |  |DIST: 070cm NEAR|
+FINAL test=5 expect=PENTAGON class=5 lcd_class_leds=000100000 dist=70 near=1
+[385282130000] ---- test 6: hexagon  mode=0  distance=30 cm  expect HEXAGON
+RES test=6 frame=17 gate=1 T=139 raw=6 class=5 obj=1 box=110,56,229,179 area=10574 I1=27609769
+RES test=6 frame=18 gate=1 T=140 raw=6 class=6 obj=1 box=110,56,229,179 area=10574 I1=27609769
+RES test=6 frame=19 gate=1 T=140 raw=6 class=6 obj=1 box=110,56,229,179 area=10574 I1=27609769
+LCD  |SHAPE: HEXAGON  |  |DIST: 030cm NEAR|
+FINAL test=6 expect=HEXAGON class=6 lcd_class_leds=001000000 dist=30 near=1
+[452482130000] ---- test 7: far  mode=0  distance=120 cm  expect NONE
+RES test=7 frame=20 gate=1 T=140 raw=2 class=6 obj=1 box=106,66,213,173 area=10003 I1=29849831
+RES test=7 frame=21 gate=1 T=140 raw=2 class=2 obj=1 box=106,66,213,173 area=10003 I1=29849831
+RES test=7 frame=22 gate=0 T=140 raw=0 class=2 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=7 frame=23 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+LCD  |OUT OF RANGE    |  |DIST: 120cm  FAR|
+FINAL test=7 expect=NONE class=0 lcd_class_leds=000000001 dist=120 near=0
+[536482130000] ---- test 8: edge76  mode=0  distance=76 cm  expect NONE
+RES test=8 frame=24 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=8 frame=25 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=8 frame=26 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=8 frame=27 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+LCD  |OUT OF RANGE    |  |DIST: 076cm  FAR|
+FINAL test=8 expect=NONE class=0 lcd_class_leds=000000001 dist=76 near=0
+[620482130000] ---- test 9: edge75  mode=0  distance=75 cm  expect SQUARE
+RES test=9 frame=28 gate=0 T=140 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=9 frame=29 gate=0 T=139 raw=0 class=0 obj=0 box=511,255,0,0 area=0 I1=29849831
+RES test=9 frame=30 gate=1 T=139 raw=2 class=0 obj=1 box=99,59,220,180 area=10004 I1=29833444
+RES test=9 frame=31 gate=1 T=139 raw=2 class=2 obj=1 box=99,59,220,180 area=10004 I1=29833444
+LCD  |SHAPE: SQUARE   |  |DIST: 075cm NEAR|
+FINAL test=9 expect=SQUARE class=2 lcd_class_leds=000000100 dist=75 near=1
+[704482130000] ---- test 10: chroma  mode=2  distance=55 cm  expect TRIANGLE
+RES test=10 frame=32 gate=1 T=139 raw=4 class=2 obj=1 box=118,73,216,180 area=5337 I1=39696159
+RES test=10 frame=33 gate=1 T=87 raw=4 class=4 obj=1 box=117,72,218,182 area=5657 I1=39626940
+RES test=10 frame=34 gate=1 T=85 raw=4 class=4 obj=1 box=117,72,218,182 area=5658 I1=39652184
+RES test=10 frame=35 gate=1 T=85 raw=4 class=4 obj=1 box=117,72,218,182 area=5658 I1=39652184
+LCD  |SHAPE: TRIANGLE |  |DIST: 055cm NEAR|
+FINAL test=10 expect=TRIANGLE class=4 lcd_class_leds=000010000 dist=55 near=1
+=== done ===
+tb_top.v:239: $finish called at 788482130000 (1ps)

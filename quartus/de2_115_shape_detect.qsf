@@ -1,0 +1,60 @@
+# ============================================================================
+# de2_115_shape_detect.qsf  -  Quartus Prime settings
+# ----------------------------------------------------------------------------
+# PIN ASSIGNMENTS: the top-level port names are identical to Terasic's
+# DE2-115 pin list.  Import it once:
+#   Assignments > Import Assignments... > DE2_115_pin_assignments.csv
+#   (DE2-115 System CD: DE2_115_tools/DE2_115_pin_assignments.csv, or let the
+#    DE2-115 System Builder generate a .qsf and copy its pin lines here)
+# ============================================================================
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name TOP_LEVEL_ENTITY de2_115_shape_detect
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_INPUT_VERSION VERILOG_2001
+set_global_assignment -name SEARCH_PATH ../rtl
+
+# ---------------- source files ----------------
+set_global_assignment -name VERILOG_FILE ../rtl/de2_115_shape_detect.v
+set_global_assignment -name VERILOG_FILE ../rtl/d5m_i2c_config.v
+set_global_assignment -name VERILOG_FILE ../rtl/d5m_capture.v
+set_global_assignment -name VERILOG_FILE ../rtl/bayer_to_rgb.v
+set_global_assignment -name VERILOG_FILE ../rtl/pixel_segment.v
+set_global_assignment -name VERILOG_FILE ../rtl/morph3x3.v
+set_global_assignment -name VERILOG_FILE ../rtl/shape_analyzer.v
+set_global_assignment -name VERILOG_INCLUDE_FILE ../rtl/shape_templates.vh
+set_global_assignment -name VERILOG_INCLUDE_FILE ../rtl/font5x7.vh
+set_global_assignment -name VERILOG_FILE ../rtl/seq_divider.v
+set_global_assignment -name VERILOG_FILE ../rtl/ultrasonic_hcsr04.v
+set_global_assignment -name VERILOG_FILE ../rtl/lcd_hd44780.v
+set_global_assignment -name VERILOG_FILE ../rtl/lcd_text.v
+set_global_assignment -name VERILOG_FILE ../rtl/vga_display.v
+set_global_assignment -name VERILOG_FILE ../rtl/dual_clock_ram.v
+set_global_assignment -name VERILOG_FILE ../rtl/cdc_bus.v
+set_global_assignment -name VERILOG_FILE ../rtl/hex7seg.v
+set_global_assignment -name SDC_FILE de2_115_shape_detect.sdc
+
+# ---------------- I/O details ----------------
+# D5M serial data is open drain; keep a weak pull-up as a backup to the
+# camera board's own resistor.
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to GPIO[23]
+# Camera inputs: register in the I/O cells for clean sampling
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to GPIO[*]
+# VGA outputs: fast output registers keep the DAC data aligned to VGA_CLK
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to VGA_*
+
+# ---------------- pin assignments ----------------
+# (import DE2_115_pin_assignments.csv - see header)
