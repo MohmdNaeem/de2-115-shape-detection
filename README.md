@@ -17,10 +17,9 @@ fits none of them.
 
 > Developed as a course project for Digital System Design with FPGA at
 > VIT Vellore (SENSE).
-> 
 
-![Simulated VGA output across the test scenes](docs/images/vga_montage.png)
-*Simulated VGA output from the full-system testbench (one frame per scene).*
+![Live hardware demo: an ellipse detected at 48 cm](docs/images/hardware/ellipse.jpeg)
+*Running on the DE2-115: the VGA monitor shows the camera image with the green bounding box, and the LCD overlay shows the shape and distance.*
 
 ---
 
@@ -32,6 +31,7 @@ fits none of them.
 - [Quick start](#quick-start)
 - [Controls and indicators](#controls-and-indicators)
 - [How recognition works](#how-recognition-works)
+- [Results on hardware](#results-on-hardware)
 - [Verification](#verification)
 - [Team](#team)
 - [Acknowledgements](#acknowledgements)
@@ -177,6 +177,29 @@ python3 check_results.py sim.log      # compares every frame with the Python mod
 In the Python model, accuracy was about 99 % over random sizes (roughly
 45–145 px across), arbitrary rotation and segmentation noise.
 
+## Results on hardware
+
+Photos of the VGA output from the real board. Each shows the camera image, the
+green bounding box, and the shape and distance reported on the LCD. The small
+green square in the top-left corner means the distance gate is open (object
+within 75 cm).
+
+| Rectangle | Triangle |
+|:---:|:---:|
+| ![Rectangle detected at 66 cm](docs/images/hardware/rectangle.jpeg) | ![Triangle detected at 67 cm](docs/images/hardware/triangle.jpeg) |
+| A hand-held rectangular object, **RECTANGLE** at 66 cm | A triangular object, **TRIANGLE** at 67 cm |
+
+| Ellipse | Unknown |
+|:---:|:---:|
+| ![Ellipse detected at 48 cm](docs/images/hardware/ellipse.jpeg) | ![Unknown shape at 52 cm](docs/images/hardware/unknown.jpeg) |
+| A dark oval object, **ELLIPSE** at 48 cm | An irregular object that fits no class, reported as **UNKNOWN** at 52 cm |
+
+The *unknown* result is intentional: when an object does not match any template,
+the design reports UNKNOWN instead of forcing a wrong guess.
+
+The simulated VGA frames from the testbench are shown below in the
+[Verification](#verification) section.
+
 ## Verification
 
 **Simulation.** `sim/tb_top.v` simulates the complete top level, with models of
@@ -184,6 +207,9 @@ the camera (a Bayer stream built from synthetic scenes), its I2C interface, the
 HC-SR04, the LCD and a VGA frame grabber. `sim/check_results.py` recomputes
 every frame with the bit-exact Python model and compares class, bounding box
 and area.
+
+![Simulated VGA output across the test scenes](docs/images/vga_montage.png)
+*Simulated VGA output from the full-system testbench (one frame per scene).*
 
 The included run (`sim/sim.log`) covers 36 frames over 11 scenes, and every
 frame matches the model bit for bit. Circle, rotated square, rotated rectangle,
@@ -200,14 +226,14 @@ the troubleshooting list in [`docs/hardware-setup.md`](docs/hardware-setup.md).
 
 ## Team
 
-| Name | Role | Contact |
-|---|---|---|
-| Mohammed Naeem P A | Sensing, display and verification  | [GitHub](https://github.com/MohmdNaeem) |
-| Albin Saji | Shape classifier and system integration |
-| Jovin Sebastian | Camera interface and image processing | 
+| Name | Role | Main contributions | GitHub |
+|---|---|---|---|
+| Mohammed Naeem P A | Sensing, display and verification | `ultrasonic_hcsr04`, `lcd_hd44780`, `lcd_text`, `vga_display`, `hex7seg`, testbench in `sim/`, hardware testing and documentation | [MohmdNaeem](https://github.com/MohmdNaeem) |
+| Albin Saji | Shape classifier and system integration | `shape_analyzer`, `shape_templates.vh`, Python reference model (`model/`), top level, clock-domain crossing and Quartus project | 
+| Jovin Sebastian | Camera interface and image processing | `d5m_i2c_config`, `d5m_capture`, `bayer_to_rgb`, `pixel_segment`, `morph3x3`, `seq_divider` |
 
 M.Tech VLSI Design, School of Electronics Engineering (SENSE), VIT Vellore.
-Guided by Dr. Jagannadha K.Naidu
+Guided by Dr. Jagannadha K. Naidu.
 
 ## Acknowledgements
 
